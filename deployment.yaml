@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loki-test-app
+
+spec:
+  selector:
+    matchLabels:
+      app: loki-test-app
+  template:
+    metadata:
+      labels:
+        app: loki-test-app
+    spec:
+      containers:
+        - name: loki-test-app
+          image: loki-test-app:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
