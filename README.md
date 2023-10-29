@@ -7,4 +7,14 @@
     - Makefile configuration to deploy loki, grafana, prometheus and promtail.
     - Run all the "all" target, and the app is running on localhost:8080, and Grafana is running on localhost:3030.
 
+## URLs
+
+- `localhost:8080` Test App (/)
+- `localhost:3000` Grafana 
+- `localhost:3100` Loki (/metrics, /ready)
+
+## LogQL
+
+- This is LogQL for all ERROR entries: `{container="loki-test-app"} |~ "ERROR"`
+
 ---

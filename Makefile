@@ -5,9 +5,12 @@ LOKI_VERSION=2.9.2
 
 .PHONY: all install-tools create-cluster build-image deploy-app clean
 
-all: install-tools create-cluster deploy-all
+all-kind: install-tools create-cluster deploy-all
 	sleep 120 # this is because the container takes a bit to get into "Running" state
 	make expose
+
+all-compose: build-image
+	docker-compose up -d --force-recreate
 
 install-tools:
 	curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.20.0/kind-linux-amd64
@@ -22,7 +25,9 @@ create-cluster:
 	kind create cluster --name $(KIND_CLUSTER_NAME)
 
 build-image:
-	docker build -t docker.io/library/$(APP_NAME):$(IMAGE_TAG) .
+	docker build -t $(APP_NAME):$(IMAGE_TAG) .
+
+kind-load:
 	kind load docker-image $(APP_NAME):$(IMAGE_TAG) --name $(KIND_CLUSTER_NAME)
 
 deploy-all: deploy
