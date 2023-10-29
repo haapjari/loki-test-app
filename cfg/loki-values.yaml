@@ -1,0 +1,16 @@
+grafana:
+  enabled: true
+
+prometheus:
+  enabled: true
+  alertmanager:
+    persistentVolume:
+      enabled: false
+  server:
+    persistentVolume:
+      enabled: false
+
+loki:
+  persistence:
+    type: emptyDir
+    medium: Memory

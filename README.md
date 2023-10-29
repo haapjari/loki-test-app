@@ -1,9 +1,10 @@
 # Loki Test App
 
 - Creating a Test App for ["Loki"](https://github.com/grafana/loki).
-- Repository Has.
+- Repository Has:
     - Simplest go app you can have.
     - Makefile to configure a ["kind"](https://kind.sigs.k8s.io/) cluster, and deploy the simplest go app there.
-      - Run all the "all" target, and the app is running on localhost:8080.
-    - Then install "promtail"  and "loki" with `make deploy-loki`
+    - Makefile configuration to deploy loki, grafana, prometheus and promtail.
+    - Run all the "all" target, and the app is running on localhost:8080, and Grafana is running on localhost:3030.
+
 ---
