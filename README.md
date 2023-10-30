@@ -17,4 +17,6 @@
 
 - This is LogQL for all ERROR entries: `{container="loki-test-app"} |~ "ERROR"`
 
+{
+
 ---
