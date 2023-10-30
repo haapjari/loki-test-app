@@ -3,7 +3,7 @@ IMAGE_TAG=latest
 APP_NAME=loki-test-app
 LOKI_VERSION=2.9.2
 
-.PHONY: all install-tools create-cluster build-image deploy-app clean
+.PHONY: all-kind all-compose install-tools create-cluster build-image build-image kind-load deploy-all deploy expose grafana-admin-password clean
 
 all-kind: install-tools create-cluster deploy-all
 	sleep 120 # this is because the container takes a bit to get into "Running" state
@@ -34,14 +34,14 @@ deploy-all: deploy
 	helm repo add grafana https://grafana.github.io/helm-charts
 	helm upgrade --install loki grafana/loki-stack -f cfg/loki-values.yaml
 
-deploy: build-image
+deploy: build-image kind-load
 	kubectl apply -f deployment.yaml
 
 expose:
 	kubectl port-forward deployment/loki-test-app 8080:8080 > /dev/null 2>&1 &
 	kubectl port-forward service/loki-grafana 3000:80 > /dev/null 2>&1 &
 
-loki-admin-password:
+grafana-admin-password:
 	kubectl get secret loki-grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
 
 clean:
